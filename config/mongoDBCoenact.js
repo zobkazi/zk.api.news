@@ -1,7 +1,7 @@
 // db.js
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb+srv://exzobaidulkazi:8t%5Dei8jtA32_iND@cluster0.f143vc0.mongodb.net/zkapinewspaper';
+const mongoURI = 'mongodb+srv://name:pass@cluster0.f143vc0.mongodb.net/dbname';
 mongoose.set('strictQuery', true);
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
