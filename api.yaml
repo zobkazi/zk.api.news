@@ -1,0 +1,121 @@
+openapi: 3.0.2
+
+info:
+  title: Blog
+  version: 1.0.0
+  description: A blog API
+  termsOfService: http://kazibyte.io/terms/
+  contact:
+    name: kazibyte API Team
+    url: http://kazibyte.io
+    email: 0Jt0K@example.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: http://localhost:8001
+    description: Staging server
+
+
+tags:
+  - name: Author 
+    description: Author Endpoint API (public - all users)
+  - name: Post
+    description: Post Endpoint API (public - all users)
+  - name: Comment
+    description: Comment Endpoint API (Private)
+  - name: User
+    description: User Endpoint API (admin only)
+
+
+paths:
+  '/api/author':
+    get:
+      description: Get all Authors
+      tags: [Author]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+  '/author/signup':
+    post:
+      description: Create a new Author
+      tags: [Author]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  format: email
+                  example: 0Jt0K@example.com
+                password:
+                  type: string
+                  format: password
+                  example: password
+              required:
+                - "name"
+                - "email"
+                - "password"
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User created successfully
+                  code:
+                    type: integer
+                    example: 201
+                    format: int32
+                  data: 
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: http://localhost:8000/author/signup
+                      string:
+                        type: string
+                        example: http://localhost:8000/author/signin
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Bad Request
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
